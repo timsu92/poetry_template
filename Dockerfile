@@ -100,3 +100,24 @@ USER nonroot
 WORKDIR ${PROJECT_PATH}
 COPY --chown=nonroot:nonroot --from=prod-prepare $PROJECT_PATH/.venv .venv
 COPY --chown=nonroot:nonroot . .
+
+################################################################################
+
+FROM builder-base AS dev
+ARG DEBIAN_FRONTEND=noninteractive
+ARG TZ
+ENV TZ=${TZ}
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update \
+    && apt-get install --no-install-recommends -y \
+        # timezone
+        tzdata \
+        # useful tools
+        vim wget curl
+# set timezone
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
+
+WORKDIR ${PROJECT_PATH}
+
+CMD ["/bin/sh", "-c", "echo \"Container started\"; trap \"echo Container stopped; exit 0\" 15; exec \"$@\"; while sleep 1 & wait $!; do :; done"]
