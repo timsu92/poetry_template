@@ -22,6 +22,14 @@ Before using this template, you may want to change the project path in these fil
 ...and you may want to change the project name:
 - [pyproject.toml line 2](./pyproject.toml#L2)
 
+...and you may want to change the Python version:
+- [.github/workflows/requirements.txt.yml line 28](./.github/workflows/requirements.txt.yml#L28)
+- [Dockerfile line 41](./Dockerfile#L41)
+
+...and you may want to change Poetry's version:
+- [.github/workflows/requirements.txt.yml line 15](./.github/workflows/requirements.txt.yml#L15)
+- [Dockerfile line 18](./Dockerfile#L18)
+
 ## Usage
 
 ### Using VSCode for development
