@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=nvidia/cuda:12.2.2-cudnn8-runtime-ubuntu22.04
+ARG BASE_IMAGE=nvidia/cuda:12.2.2-base-ubuntu22.04
 
 FROM $BASE_IMAGE AS python-base
 ARG PROJECT_PATH
